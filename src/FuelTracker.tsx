@@ -37,7 +37,6 @@ const RecenterMap = ({ lat, lng }: { lat: number; lng: number }) => {
 const FuelTracker: React.FC = () => {
 	const [stations, setStations] = useState<GasStation[]>([]);
 
-	// Real History State
 	const [history, setHistory] = useState<{
 		[key: string]: { [date: string]: number };
 	}>(() => {
@@ -78,7 +77,6 @@ const FuelTracker: React.FC = () => {
 		return saved ? parseFloat(saved) : 6.5;
 	});
 
-	// Persistence
 	useEffect(() => {
 		localStorage.setItem("myConsumption", consumption.toString());
 		localStorage.setItem("darkMode", isDarkMode.toString());
@@ -137,7 +135,6 @@ const FuelTracker: React.FC = () => {
 						if (!updated[s.id]) updated[s.id] = {};
 						updated[s.id][today] = s.prices[0].amount;
 
-						// Keep exactly 7 days
 						const dates = Object.keys(updated[s.id]).sort();
 						if (dates.length > 7) {
 							const toDelete = dates.length - 7;
@@ -155,7 +152,6 @@ const FuelTracker: React.FC = () => {
 		const values = [];
 		const stationData = history[stationId] || {};
 
-		// Check how many UNIQUE days we actually have
 		const uniqueDaysCount = Object.keys(stationData).length;
 
 		for (let i = 6; i >= 0; i--) {
@@ -201,7 +197,6 @@ const FuelTracker: React.FC = () => {
 			}}
 		>
 			<div style={{ maxWidth: "800px", margin: "0 auto" }}>
-				{/* Header */}
 				<div
 					style={{
 						display: "flex",
@@ -211,7 +206,7 @@ const FuelTracker: React.FC = () => {
 					}}
 				>
 					<h1 style={{ fontSize: "1.5rem", fontWeight: "bold", margin: 0 }}>
-						Fuel Monitor
+						Fuel Price Checker
 					</h1>
 					<div style={{ display: "flex", gap: "12px", alignItems: "center" }}>
 						<button
@@ -268,7 +263,6 @@ const FuelTracker: React.FC = () => {
 					</div>
 				</div>
 
-				{/* Search & Selector */}
 				<div
 					style={{
 						display: "grid",
@@ -344,7 +338,6 @@ const FuelTracker: React.FC = () => {
 					</div>
 				</div>
 
-				{/* Map */}
 				<div
 					style={{
 						height: "300px",
@@ -377,7 +370,6 @@ const FuelTracker: React.FC = () => {
 					</MapContainer>
 				</div>
 
-				{/* List */}
 				<div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
 					<table
 						style={{
@@ -599,7 +591,6 @@ const FuelTracker: React.FC = () => {
 															</div>
 														)}
 
-														{/* 3-Day Forecast */}
 														<div
 															style={{
 																marginTop: "20px",
