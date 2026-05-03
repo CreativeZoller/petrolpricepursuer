@@ -117,11 +117,23 @@ const FuelTracker: React.FC = () => {
 	};
 
 	useEffect(() => {
-		const apiUri = `https://api.e-control.at/sprit/1.0/search/gas-stations/by-address?latitude=${coords.lat}&longitude=${coords.lng}&fuelType=${fuelType}&includeClosed=false`;
-		const url = `https://corsproxy.io/?${encodeURIComponent(apiUri)}`;
+		const params = new URLSearchParams({
+			latitude: String(coords.lat),
+			longitude: String(coords.lng),
+			fuelType,
+			includeClosed: "false",
+		});
+		// Same-origin path: Netlify proxies via netlify.toml; Vite proxies in dev.
+		// (corsproxy.io free tier only allows localhost — production Origin gets 403.)
+		const url = `/sprit-proxy/1.0/search/gas-stations/by-address?${params}`;
 
 		fetch(url)
-			.then((res) => res.json())
+			.then((res) => {
+				if (!res.ok) {
+					throw new Error(`Sprit API ${res.status}`);
+				}
+				return res.json();
+			})
 			.then((data: GasStation[]) => {
 				const valid = (Array.isArray(data) ? data : []).filter(
 					(s) => s.prices?.length > 0,

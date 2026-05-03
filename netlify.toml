@@ -1,0 +1,10 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+# Same-origin proxy so the Sprit API works on production (corsproxy.io only allows localhost).
+[[redirects]]
+  from = "/sprit-proxy/*"
+  to = "https://api.e-control.at/sprit/:splat"
+  status = 200
+  force = true
