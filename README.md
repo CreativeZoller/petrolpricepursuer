@@ -36,8 +36,8 @@ No account. No server. No tracking. All price history is stored locally in your 
 | Map rendering | [Leaflet](https://leafletjs.com) via `react-leaflet` |
 | Place search | [OpenStreetMap Nominatim API](https://nominatim.org) |
 | Fuel price data | [Sprit.org API](https://www.sprit.org) |
-| Local storage | Browser `localStorage` (no backend required) |
-| Charts | Recharts (or your preferred chart library) |
+| Local storage | Browser `localStorage` |
+| Charts | Recharts |
 | Styling | CSS Modules / Tailwind CSS |
 
 ---
